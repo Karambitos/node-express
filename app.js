@@ -1,10 +1,17 @@
 import express from "express";
+import mongoose from "mongoose";
 import morgan from "morgan";
 import cors from "cors";
 
 import contactsRouter from "./routes/api/contactsRouter.js";
 
 const app = express();
+
+const DB_HOST = "mongodb+srv://Admin:^zMqPmtDN9V8HWS1yn@cluster0.egbthzb.mongodb.net/contacts_reader?retryWrites=true&w=majority";
+
+mongoose.connect(DB_HOST)
+    .then(() => {console.log("Database connection successful")})
+    .catch(error => {console.log(error.message)});
 
 app.use(morgan("tiny"));
 app.use(cors());
@@ -16,7 +23,7 @@ app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   const { status = 500, message = "Server error" } = err;
   res.status(status).json({ message });
 });

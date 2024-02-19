@@ -1,11 +1,16 @@
 import fs from 'fs/promises';
-import { fileURLToPath } from 'url';
-import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const contactsPath = path.join(__dirname, 'contacts.json');
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// console.log(__filename)
+// const contactsPath = path.join(__dirname, 'contacts.json');
+
+
+const contactsPath = './db/contacts.json';
 
 async function getAll() {
     const contactsService = await fs.readFile(contactsPath, 'utf-8');
